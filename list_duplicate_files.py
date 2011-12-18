@@ -5,19 +5,20 @@ import os.path
 from sys import argv
 import collections
 
-extension = 'mp3'
-mp3 = []
+script, extension, root_path = argv
+
+files_extension = []
 
 def confirm(arg, directory, files):
     for File in files:
         if len(File.split('.')) == 2:
             if File.split('.')[1] == extension:
-                mp3.append(os.path.join(directory, File))
+                files_extension.append(os.path.join(directory, File))
 
-os.path.walk('/media/E', confirm, None)
+os.path.walk(root_path, confirm, None)
 cmd = 'md5sum'
 md5sums = []
-for song in mp3:
+for song in files_extension:
     c = list(song)
     c.insert(0,'"')
     c.append('"')
