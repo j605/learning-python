@@ -3,6 +3,7 @@
 import os
 import os.path
 from sys import argv
+import collections
 
 extension = 'mp3'
 mp3 = []
@@ -27,4 +28,19 @@ for song in mp3:
     except:
         print "error"
         
-print len(md5sums), '   ', len(mp3)
+parsed_hash = {}
+md5_list = list()
+for item in md5sums:
+    md, path = item.split(' ',1)
+    if md in parsed_hash:
+        parsed_hash[md].append(path.strip())
+    else:
+        parsed_hash[md] = [path.strip()]
+    md5_list.append(md)
+
+y = collections.Counter(md5_list)
+md5_duplicates = [i for i in y if y[i] > 1]
+
+print 'Duplicates are: '
+for item in md5_duplicates:
+    print parsed_hash[item]
