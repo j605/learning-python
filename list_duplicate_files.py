@@ -42,6 +42,9 @@ for item in md5sums:
 y = collections.Counter(md5_list)
 md5_duplicates = [i for i in y if y[i] > 1]
 
-print 'Duplicates are: '
-for item in md5_duplicates:
-    print parsed_hash[item]
+if len(md5_duplicates) == 0:
+	print "No duplicates found"
+else:
+	print 'Duplicates are: '
+	for item in md5_duplicates:
+		print parsed_hash[item]
